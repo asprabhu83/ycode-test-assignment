@@ -5,10 +5,10 @@
     <section class="relative flex flex-1 flex-row overflow-hidden">
     <Layers />
       <section
-        class="w-full h-full relative z-10 scrollbar text-center text-none overflow-auto"
+        class="w-full h-full relative z-10 scrollbar text-center text-none overflow-auto" 
       >
         <button @click="createLayer" >Add Layer</button>
-        <div v-for="(layer, layerIndex) in Layers" v-bind:key="layerIndex" class="text-center p-3">
+        <div v-for="(layer, layerIndex) in Layers" v-bind:key="layerIndex" class="p-3" :class="layer.className">
          <span class="inline-flex items-center p-2 left" v-show="!layer.editable" @click="focusLayer(layer)" :class="layer.focusable?'border border-blue-300':''"> {{layer.textLayer}}
          &nbsp; <icon name="ycode-edit" colorIcon="blue" size="10" class="relative -top-7 right-3 cursor-pointer bg-blue-300 p-1"  v-show="layer.focusable" @click="editLayer(layer)"/> <icon name="ycode-trash" colorIcon="blue" size="10" class="relative -top-7 right-1 cursor-pointer  bg-blue-300 p-1" v-show="layer.focusable" @click="deleteLayer(layerIndex)"/> </span>
          <input v-model="layer.textLayer" autocomplete="off" v-show="layer.editable" :id="'textLayer'+layerIndex" type="text" class="border p-3" @focus="focusLayer(layer)" @blur="blurLayer(layer)">
@@ -33,7 +33,6 @@ export default {
     Layers,
     Icon
   },
-
   methods: {
     createLayer() {
       var layerCount = this.$store.state.Layers.length + 1
@@ -42,9 +41,11 @@ export default {
         "textLayer": "Text Layer" + layerCount,
         "editable": false,
         "focusable": false,
+        "className":''
       });
     },
     focusLayer(layer){
+      this.$store.commit('clearDesignValues')
       this.Layers.forEach(l=>{
         if(l.layerName === layer.layerName)
           l.focusable = true
@@ -59,10 +60,11 @@ export default {
     },
     deleteLayer(layerIndex){
      this.Layers.splice(layerIndex, 1)
+     this.$store.commit('clearDesignValues')
     },
     blurLayer(layer) {
       layer.editable = false
-       layer.focusable = false
+      layer.focusable = false
     }
   },
   computed: {

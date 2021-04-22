@@ -7,7 +7,7 @@
         class="text-white text-xs font-medium flex justify-between items-center p-3 pb-0 ">
         <div class="flex items-center leading-5 py-px">Layers</div>
       </header>
-      <div v-for="(layer, layerIndex) in Layers" v-bind:key="layerIndex" class="block items-center text-xs font-medium items-center p-3 pb-0" :class="layer.focusable?'bg-white text-black':'text-white'">
+      <div v-for="(layer, layerIndex) in Layers" v-bind:key="layerIndex" class="block items-center text-xs font-medium p-2 mt-2" :class="layer.focusable?'bg-white text-black':'text-white'">
           {{layer.layerName}}
         </div>
     
