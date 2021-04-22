@@ -7,13 +7,13 @@
       <section
         class="w-full h-full relative z-10 scrollbar text-center text-none overflow-auto"
       >
-        <button @click="createLayer">add layer</button>
-        <div v-for="(layer, layerIndex) in Layers" v-bind:key="layerIndex" class="p-3">
-         <span class="inline-flex items-center p-2" v-show="!layer.editable" @click="focusLayer(layer)" :class="layer.focusable?'border-solid border-2 border-gray-300':''"> {{layer.textLayer}}
+        <button @click="createLayer" >add layer</button>
+        <div v-for="(layer, layerIndex) in Layers" v-bind:key="layerIndex" class="flex text-center p-3">
+         <span class="inline-flex items-center p-2 left" v-show="!layer.editable" @click="focusLayer(layer)" :class="layer.focusable?'border-solid border-2 border-gray-300':''"> {{layer.textLayer}}
          &nbsp; <icon name="ycode-edit" class="relative -top-8 right-3" color="gray" v-show="layer.focusable" @click="editLayer(layer)"/></span>
-         <input v-model="layer.textLayer" v-show="layer.editable" :id="'textLayer'+layerIndex" type="text" class="field-value form-control" @focus="focusLayer(layer)" @blur="blurLayer(layer)">
+         <input v-model="layer.textLayer" v-show="layer.editable" :id="'textLayer'+layerIndex" type="text" class="border p-3" @focus="focusLayer(layer)" @blur="blurLayer(layer)">
         </div>
-      </section>
+        </section>
 
       <Design />
     </section>
